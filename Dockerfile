@@ -12,26 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#FROM nginx:1.24.0-alpine3.17-slim
-#FROM nginx:1.26.1-alpine3.19-slim
-#RUN apk add --no-cache nginx-mod-http-lua
-#FROM fabiocicerchia/nginx-lua:1.27.0-alpine3.20.1
-#RUN rm -rf /etc/nginx/conf.d
-#FROM nginx:1.26.1-alpine3.19-slim
-#FROM nginx:1.27.0-alpine3.19
-#RUN apk update && apk add --no-cache nginx-plus-module-lua
-#ADD nginx.conf /etc/nginx/nginx.conf
-#ADD README.md README.md
+FROM alpine:3.20.1
 
-FROM alpine:3.17.8
-
-RUN apk add --no-cache nginx-mod-http-lua
+RUN apk update
+RUN apk add --no-cache openssl nginx-mod-http-lua lua-dev luarocks
+RUN luarocks-5.1 install lua-resty-template
 
 # Create folder for PID file
 RUN mkdir -p /run/nginx
 
-# Add custom nginx conf
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# Add files
+COPY entrypoint.sh /usr/local/bin/
+COPY nginx.conf /etc/nginx/nginx.conf
 
-ENTRYPOINT ["nginx"]
-CMD ["-c", "/etc/nginx/nginx.conf"]
+EXPOSE 8080
+EXPOSE 8443
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["nginx", "-c", "/etc/nginx/nginx.conf"]
