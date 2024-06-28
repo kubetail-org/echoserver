@@ -1,6 +1,6 @@
 # Echoserver
 
-This is a fork of the enigmatic `k8s.gcr.io/echoserver` image, designed to run on amd64 and arm64 architecture.
+This is a fork of the enigmatic `k8s.gcr.io/echoserver`, designed to run on amd64 and arm64 architecture.
 
 ## Introduction
 
