@@ -25,13 +25,19 @@
 
 FROM alpine:3.17.8
 
-RUN apk add --no-cache nginx-mod-http-lua
+RUN apk update
+RUN apk add --no-cache openssl nginx-mod-http-lua lua-dev luarocks
+RUN luarocks-5.1 install lua-resty-template
 
 # Create folder for PID file
 RUN mkdir -p /run/nginx
 
-# Add custom nginx conf
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# Add files
+COPY entrypoint.sh /usr/local/bin/
+COPY nginx.conf /etc/nginx/nginx.conf
 
-ENTRYPOINT ["nginx"]
-CMD ["-c", "/etc/nginx/nginx.conf"]
+EXPOSE 8080
+EXPOSE 8443
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["nginx", "-c", "/etc/nginx/nginx.conf"]
