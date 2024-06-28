@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: echoserver
-        image: kubetail/echoserver:0.0.1
+        image: kubetail/echoserver:0.1.1
         ports:
         - name: http
           containerPort: 8080
