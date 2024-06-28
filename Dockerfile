@@ -12,18 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#FROM nginx:1.24.0-alpine3.17-slim
-#FROM nginx:1.26.1-alpine3.19-slim
-#RUN apk add --no-cache nginx-mod-http-lua
-#FROM fabiocicerchia/nginx-lua:1.27.0-alpine3.20.1
-#RUN rm -rf /etc/nginx/conf.d
-#FROM nginx:1.26.1-alpine3.19-slim
-#FROM nginx:1.27.0-alpine3.19
-#RUN apk update && apk add --no-cache nginx-plus-module-lua
-#ADD nginx.conf /etc/nginx/nginx.conf
-#ADD README.md README.md
-
-FROM alpine:3.17.8
+FROM alpine:3.20.1
 
 RUN apk update
 RUN apk add --no-cache openssl nginx-mod-http-lua lua-dev luarocks
